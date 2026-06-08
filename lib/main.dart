@@ -22,7 +22,7 @@ class _SmartTripAIState extends State<SmartTripAI> {
   }
 
   void initialization() async {
-    await Future.delayed(const Duration(seconds: 20));
+    await Future.delayed(const Duration(seconds: 3));
     FlutterNativeSplash.remove();
   }
 
@@ -31,7 +31,8 @@ class _SmartTripAIState extends State<SmartTripAI> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Smart Trip AI',
-
+      //home: const HomeScreen(),
     );
   }
 }
+

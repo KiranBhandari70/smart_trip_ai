@@ -1,17 +1,19 @@
 class AppRoutes {
-  AppRoutes._();
 
-  static const String splash = '/';
+  static const splash = '/';
 
-  static const String login = '/login';
+  static const login = '/login';
 
-  static const String register = '/register';
+  static const register = '/register';
 
-  static const String home = '/home';
+  static const home = '/home';
 
-  static const String createTrip = '/create-trip';
+  static const createTrip =
+      '/create-trip';
 
-  static const String itinerary = '/itinerary';
+  static const itinerary =
+      '/itinerary';
 
-  static const String profile = '/profile';
+  static const profile =
+      '/profile';
 }

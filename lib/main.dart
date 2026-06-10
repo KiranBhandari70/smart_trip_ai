@@ -3,6 +3,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:smart_trip_ai/core/theme/app_theme.dart';
 import 'package:smart_trip_ai/features/authentication/presentation/register_screen.dart';
 
+import 'features/authentication/presentation/login_screen.dart';
+
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -34,7 +36,7 @@ class _SmartTripAIState extends State<SmartTripAI> {
       debugShowCheckedModeBanner: false,
       title: 'Smart Trip AI',
       theme: AppTheme.lightTheme,
-      home: const RegisterScreen(),
+      home: const LoginScreen(),
     );
   }
 }

@@ -140,7 +140,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     const Text("Already have an account? "),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: const Text("Sign In"),
                     )
                   ],

@@ -33,6 +33,11 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       validator: validator,
+      cursorColor: Theme.of(context).primaryColor,
+      style: TextStyle(
+        fontSize: 13,
+      ),
+
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       onChanged: onChanged,

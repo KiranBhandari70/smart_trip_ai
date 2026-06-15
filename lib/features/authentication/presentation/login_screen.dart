@@ -14,6 +14,24 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _handleLogin() {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Logic for Login
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Processing Login...')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +41,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(30),
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
-                    const AppLogo(width: 140),
+                    const AppLogo(width: 160),
 
                     Container(
                       padding: const EdgeInsets.all(30),
+                      margin: const EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xFFF0FDFA),
+                            Color(0xFFDCFCE7),
+                            Color(0xFFBAE6FD),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                         boxShadow: [
-                          BoxShadow(
-                            blurRadius: 25,
-                            color: Colors.black26,
-                            offset: const Offset(0, 15),
+                           BoxShadow(
+                             blurRadius: 20,
+                             color: Colors.indigo,
+                             offset: const Offset(0, 0), // Shadow position of login container
                           ),
                         ],
                       ),
@@ -47,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const Text(
                               "Welcome Back!",
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -56,15 +82,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             const Text(
                               "Continue planning your next adventure.",
+                              style: TextStyle(fontSize: 11,),
                             ),
 
-                            const SizedBox(height: 25),
+                            const SizedBox(height: 16),
 
                             CustomTextField(
                               hintText: "Email",
                               prefixIcon: Icons.mark_email_read,
                               keyboardType: TextInputType.emailAddress,
                               validator: Validators.validateEmail,
+                              textInputAction: TextInputAction.next,
                             ),
 
                             const SizedBox (height: 16),
@@ -86,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   "Forgot Password?",
                                   style: TextStyle(
                                     color: Colors.blueAccent,
+                                    fontSize: 12,
                                   ),
                                 ),
                               ),
@@ -96,17 +125,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             PrimaryButton(
                               title: "Login",
-                              onPressed: () {},
+                              onPressed: _handleLogin,
                             ),
 
-                            const SizedBox(height: 18),
+                            const SizedBox(height: 10),
 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Flexible(
-                                  child: Text(" Wanna Make Your Travelling Easier ?",
-                                  textAlign: TextAlign.center,
+
+                                  children: [
+                                const Text("Don't have an account? ",
+                                style: TextStyle(
+                                  fontSize: 12,
                                 ),
                                 ),
 
@@ -119,7 +149,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     );
                                   },
-                                  child: const Text("Sign Up"),
+                                  child: const Text("Sign Up",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  ),
                                 ),
                               ],
                             ),

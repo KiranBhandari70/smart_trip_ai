@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String hintText;
   final String? labelText;
@@ -9,7 +9,6 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType keyboardType;
   final TextInputAction? textInputAction;
-  final IconData? prefixIconColor;
   final void Function(String)? onChanged;
 
   const CustomTextField({
@@ -23,41 +22,69 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.textInputAction,
     this.onChanged,
-    this.prefixIconColor,
   });
 
   @override
-  Widget build(BuildContext context) {
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
 
+class _CustomTextFieldState extends State<CustomTextField> {
+  late bool _hidePassword;
+
+  @override
+  void initState() {
+    super.initState();
+    _hidePassword = widget.obscureText;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      validator: validator,
-      cursorColor: Theme.of(context).primaryColor,
-      style: TextStyle(
+      controller: widget.controller,
+      obscureText: _hidePassword,
+      validator: widget.validator,
+      cursorColor: Theme.of(context).primaryColorDark,
+      style: const TextStyle(
         fontSize: 13,
       ),
-
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      onChanged: onChanged,
-
+      keyboardType: widget.keyboardType,
+      textInputAction: widget.textInputAction,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText ?? hintText,
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+        hintText: widget.hintText,
+        labelText: widget.labelText ?? widget.hintText,
+        prefixIcon: widget.prefixIcon != null
+            ? Icon(widget.prefixIcon) : null,
         prefixIconColor: Colors.green,
+        suffixIcon: widget.obscureText ? IconButton(
+          icon: Icon(
+            _hidePassword ? Icons.visibility_off : Icons.visibility,),
+
+          onPressed: () {
+            setState(() {
+              _hidePassword = !_hidePassword;}
+            );
+            },
+        ) : null,
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey.shade300),
+          borderSide: const BorderSide(
+            color: Colors.black12,
+          ),
         ),
+
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColorDark,
+          ),
         ),
+
       ),
     );
   }

@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Container(
                 padding: const EdgeInsets.all(30),
                 decoration: BoxDecoration(
-                  color: Colors.white30,
+                  color: Colors.white54,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(

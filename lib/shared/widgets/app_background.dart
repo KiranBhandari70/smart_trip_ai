@@ -44,7 +44,7 @@ class AppBackground extends StatelessWidget {
               bottom: -100,
               left: -80,
               child: Container(
-                width: 260,
+                width: 200,
                 height: 260,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -58,7 +58,7 @@ class AppBackground extends StatelessWidget {
               right: 8,
               child: Container(
                 width: 50,
-                height:300,
+                height:260,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.indigo.withOpacity(0.4),

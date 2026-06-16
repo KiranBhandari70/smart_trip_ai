@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:smart_trip_ai/shared/widgets/app_background.dart';
 import 'package:smart_trip_ai/shared/widgets/custom_text_field.dart';
 import 'package:smart_trip_ai/shared/widgets/primary_button.dart';
 import '../../../core/utils/validators.dart';
 import '../../../shared/widgets/app_logo.dart';
+import '../../home/presentation/home_screen.dart';
 import './register_screen.dart';
+import 'package:local_auth/local_auth.dart';
+import '../../../core/services/biometric_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,10 +16,12 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final Biometric biometric = Biometric();
 
   @override
   void dispose() {
@@ -36,7 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
+        body: AppBackground(
+          child: SafeArea(
             child: SingleChildScrollView(
                 padding: const EdgeInsets.all(30),
                 child: Column(
@@ -47,21 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(30),
                       margin: const EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFFF0FDFA),
-                            Color(0xFFDCFCE7),
-                            Color(0xFFBAE6FD),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                        color: Colors.white54,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
-                           BoxShadow(
-                             blurRadius: 20,
-                             color: Colors.indigo,
-                             offset: const Offset(0, 0), // Shadow position of login container
+                          BoxShadow(
+                            blurRadius: 20,
+                            color: Colors.black12,
+                            offset: Offset(0, 8),
                           ),
                         ],
                       ),
@@ -161,11 +160,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    const Biometric(),
                   ],
                 )
             )
         )
-
+        )
     );
   }
 }

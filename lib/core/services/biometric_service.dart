@@ -3,39 +3,47 @@ import 'package:local_auth/local_auth.dart';
 import '../../features/home/presentation/home_screen.dart';
 
 class Biometric extends StatefulWidget {
-
   const Biometric({super.key});
+
   @override
   State<Biometric> createState() => _BiometricState();
 }
 
 class _BiometricState extends State<Biometric> {
-  final LocalAuthentication auth = LocalAuthentication();
-  Future<void> biometricLogin() async {
-    try {
-      final canAuthenticate =
-          await auth.canCheckBiometrics ||
-              await auth.isDeviceSupported();
+  final LocalAuthentication _auth = LocalAuthentication();
 
-      if(!canAuthenticate){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Biometric not available"),
-          ),
-        );
+  bool _isAuthenticating = false;
+  String _message = '';
+
+  Future<void> _authenticate() async {
+    if (_isAuthenticating) return;
+
+    try {
+      setState(() {
+        _isAuthenticating = true;
+        _message = '';
+      });
+
+      final bool canAuthenticate =
+          await _auth.canCheckBiometrics ||
+              await _auth.isDeviceSupported();
+
+      if (!canAuthenticate) {
+        setState(() {
+          _message = 'Biometric authentication is not available.';
+        });
         return;
       }
 
-      final authenticated = await auth.authenticate(
-        localizedReason:
-        "Login using biometric authentication",
-        options: const AuthenticationOptions(
-          biometricOnly: true,
-          stickyAuth: true,
-        ),
+      final bool authenticated = await _auth.authenticate(
+        localizedReason: 'Authenticate to continue to Smart Trip AI',
+        biometricOnly: true,
+        persistAcrossBackgrounding: true,
       );
 
-      if(authenticated){
+      if (!mounted) return;
+
+      if (authenticated) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -43,21 +51,45 @@ class _BiometricState extends State<Biometric> {
             const HomeScreen(),
           ),
         );
+
+        setState(() {
+          _message = 'Authentication Successful';
+        });
+      } else {
+        setState(() {
+          _message = 'Authentication Failed';
+        });
+      }
+    } catch (e) {
+      if (!mounted) return;
+
+      setState(() {
+        _message = 'Authentication Error';
+      });
+
+      debugPrint('Biometric Error: $e');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isAuthenticating = false;
+        });
       }
     }
-    catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Biometric login failed"),
-        ),
-      );
-    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _authenticate();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: biometricLogin,
+      onTap: _authenticate,
       child: Container(
         padding:
         const EdgeInsets.all(15),

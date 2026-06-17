@@ -10,78 +10,93 @@ class AppBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(   //forces full screen size
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFE0F2FE),
-              Color(0xFFCCFBF1),
-              Color(0xFFDCFCE7),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
 
-        child: Stack(
-          children: [
-
-            Positioned(
-              top: -80,
-              right: -60,
-              child: Container(
-                width: 220,
-                height: 220,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.lightBlue,
-                ),
-              ),
-            ),
-
-            Positioned(
-              bottom: -100,
-              left: -80,
-              child: Container(
-                width: 200,
-                height: 260,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.lightGreen,
-                ),
-              ),
-            ),
-
-            Positioned(
-              bottom: -60,
-              right: 8,
-              child: Container(
-                width: 50,
-                height:260,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.indigo.withOpacity(0.4),
-                ),
-              ),
-            ),
-
-            Positioned(
-              top: 100,
-              left: 8,
-              child: Container(
-                width: 70,
-                height: 250,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.red.withOpacity(0.4),
-                ),
-              ),
-            ),
-
-            child,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFFF8FAFC),
+            Color(0xFFE0F2FE),
+            Color(0xFFF0FDFA),
           ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
+      ),
+
+      child: Stack(
+        children: [
+
+          // Top blue ambient glow
+          Positioned(
+            top: -120,
+            right: -100,
+            child: _softBlob(
+              size: 320,
+              color: Color(0xFF38BDF8),
+            ),
+          ),
+
+
+          // Bottom green ambient glow
+          Positioned(
+            bottom: -140,
+            left: -120,
+            child: _softBlob(
+              size: 350,
+              color: Color(0xFF34D399),
+            ),
+          ),
+
+
+          // Center subtle purple AI glow
+          Positioned(
+            top: 250,
+            left: -80,
+            child: _softBlob(
+              size: 180,
+              color: Color(0xFF818CF8),
+            ),
+          ),
+
+
+          child,
+        ],
+      ),
+    );
+  }
+
+
+  Widget _softBlob({
+    required double size,
+    required Color color,
+  }) {
+
+    return Container(
+      width: size,
+      height: size,
+
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+
+        color: color.withValues(
+          alpha: 0.12,
+        ),
+
+        boxShadow: [
+
+          BoxShadow(
+            color: color.withValues(
+              alpha: 0.20,
+            ),
+
+            blurRadius: 120,
+            spreadRadius: 40,
+          ),
+
+        ],
       ),
     );
   }

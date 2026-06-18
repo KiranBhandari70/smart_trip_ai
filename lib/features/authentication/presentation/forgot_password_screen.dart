@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_trip_ai/features/authentication/widgets/card.dart';
+import 'package:smart_trip_ai/shared/widgets/card.dart';
 
 import '../../../core/utils/validators.dart';
 import '../../../shared/widgets/app_background.dart';

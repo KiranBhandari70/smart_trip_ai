@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_trip_ai/features/authentication/presentation/forgot_password_screen.dart';
-import 'package:smart_trip_ai/features/authentication/widgets/card.dart';
+import 'package:smart_trip_ai/shared/widgets/card.dart';
 import 'package:smart_trip_ai/shared/widgets/app_background.dart';
 import 'package:smart_trip_ai/shared/widgets/custom_text_field.dart';
 import 'package:smart_trip_ai/shared/widgets/primary_button.dart';

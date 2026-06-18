@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import '../../features/home/presentation/home_screen.dart';
+import '../../features/home/presentation/main_page.dart';
 
 class Biometric extends StatefulWidget {
   const Biometric({super.key});

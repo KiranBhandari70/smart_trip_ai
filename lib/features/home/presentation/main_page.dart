@@ -4,7 +4,7 @@ import '../../../shared/components/bottom_navigation.dart';
 import '../../history/presentation/trip_history_screen.dart';
 import '../../profile/presentation/profile_screen.dart';
 import '../../saved_trips/presentation/saved_trips_screen.dart';
-import '../../trip_planning/presentation/create_trip_screen.dart';
+import '../../trip_planning/presentation/trip_planner_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
